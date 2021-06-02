@@ -6,15 +6,20 @@
 // All it does is render <div>Hello Vue</div> at the bottom of the page.
 
 import Vue from 'vue'
-import App from '../app.vue'
+import App from '../components/app.vue'
+
+import VueMaterial from 'vue-material'
+import 'vue-material/dist/vue-material.min.css'
+import 'vue-material/dist/theme/default.css'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const app = new Vue({
-    render: h => h(App)
-  }).$mount()
-  document.body.appendChild(app.$el)
+    Vue.use(VueMaterial);
+    const app = new Vue({
+        render: h => h(App)
+    }).$mount()
+    document.body.appendChild(app.$el)
 
-  console.log(app)
+    console.log(app)
 })
 
 
