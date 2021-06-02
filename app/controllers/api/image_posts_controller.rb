@@ -3,7 +3,7 @@
 module Api
   class ImagePostsController < ApplicationController
     def index
-      render json: ImagePost.all.map { |i| i.as_json.merge(image: rails_blob_url(i.image)) }
+      render json: ImagePost.all
     end
 
     def create
@@ -14,6 +14,10 @@ module Api
       else
         render json: {}, status: :unprocessable_entity
       end
+    end
+
+    def show
+      render json: ImagePost.find(params[:id])
     end
 
     def avatar
