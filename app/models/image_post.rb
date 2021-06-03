@@ -3,4 +3,6 @@
 class ImagePost < ApplicationRecord
   has_one_attached :image
   validates :header, presence: true
+
+  has_many :comments, dependent: :destroy
 end

@@ -2,10 +2,10 @@
 
 module Api
   class ImagePostsController < ApplicationController
-    before_action :set_image_post, only: %i[show delete]
+    before_action :set_image_post, only: %i[show destroy]
 
     def index
-      render json: ImagePost.all.reverse_order
+      render json: ImagePost.includes(:comments).reverse_order
     end
 
     def create
@@ -19,11 +19,12 @@ module Api
     end
 
     def show
-      render json: @image_post
+      render json: @image_post, serializer: Api::SingleImagePostSerializer
     end
 
-    def delete
-      @image_post.delete
+    def destroy
+      @image_post.image.purge
+      @image_post.destroy
       render json: {}, status: :ok
     end
 

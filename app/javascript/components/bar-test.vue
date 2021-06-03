@@ -56,7 +56,7 @@
 
 <script>
 
-import ImagePage from "./image_page/image-page";
+import ImagePage from "./image-page/image-page";
 export default {
   name: 'Reveal',
   components: {ImagePage},
