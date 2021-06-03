@@ -40,6 +40,8 @@ module Api
 
     def set_image_post
       @image_post = ImagePost.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      render json: {}, status: :unprocessable_entity
     end
   end
 end

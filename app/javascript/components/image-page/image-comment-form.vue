@@ -1,23 +1,35 @@
 <template>
   <div class="input-comment-form">
-    <md-field>
-      <label>Content</label>
-      <md-input v-model="content"/>
-    </md-field>
-    <md-button class="md-primary">Comment</md-button>
+    <form @submit.prevent="handleSubmit">
+      <md-field>
+        <label>Content</label>
+        <md-input v-model="form.content"/>
+      </md-field>
+      <md-button class="md-primary" type="submit">Comment</md-button>
+    </form>
   </div>
 </template>
 
 <script>
-export default {
-  props: ['postId'],
-  data: () => ({
-    content: ''
-  }),
-  methods: {
-    handleSubmit() {
+import axios from "axios";
+import {routesBuilder} from "../../routesBuilder";
 
+export default {
+  props: ['post_id'],
+  data() {
+    return {
+      form: {
+        content: '',
+        image_post_id: this.post_id
+      }
     }
+  },
+  methods: {
+    async handleSubmit() {
+      await axios.post(routesBuilder.api.comments.root, {comment: this.form})
+      this.$emit('updateComments')
+      this.form.content = ''
+    },
   }
 }
 </script>

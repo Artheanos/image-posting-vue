@@ -2,7 +2,7 @@
   <div id="image_page">
     <image-form @updatePosts="updatePosts"></image-form>
     <div class="md-content">
-      <image-single v-for="post in this.posts" :post="post" @updatePosts="updatePosts"/>
+      <image-single v-for="post in this.posts" :key="post.id" :post="post" @updatePosts="updatePosts"/>
     </div>
   </div>
 </template>

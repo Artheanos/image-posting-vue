@@ -26,7 +26,7 @@
           </div>
 
           <md-card-expand-trigger>
-            <md-button class="md-icon-button" @mousedown="updateComments">
+            <md-button class="md-icon-button" @mousedown="expandComments">
               <md-icon>keyboard_arrow_down</md-icon>
             </md-button>
           </md-card-expand-trigger>
@@ -34,8 +34,9 @@
 
         <md-card-expand-content>
           <md-card-content>
-            <image-comment-form @post_id="post.id"/>
-            <image-comment v-for="comment in comments" :content="comment.content"/>
+            <image-comment-form :post_id="post.id" @updateComments="updateComments"/>
+            <image-comment v-for="comment in comments" :key="comment.id" :comment="comment"
+                           @updateComments="updateComments"/>
           </md-card-content>
         </md-card-expand-content>
       </md-card-expand>
@@ -53,6 +54,7 @@ import ImageCommentForm from "./image-comment-form";
 
 export default {
   components: {ImageCommentForm, ImageComment},
+  props: ['post'],
   data: () => ({
     deleteActive: false,
     deleted: false,
@@ -69,15 +71,17 @@ export default {
       console.log(await axios.delete(routesBuilder.api.imagePosts.edit(this.post.id)));
     },
     async updateComments() {
-      if (this.commentsLoaded) {
-        return
-      }
       const detailedPost = (await axios.get(routesBuilder.api.imagePosts.edit(this.post.id))).data;
       this.comments = detailedPost.comments;
       this.commentsLoaded = true;
+    },
+    expandComments() {
+      if (this.commentsLoaded) {
+        return
+      }
+      this.updateComments()
     }
   },
-  props: ['post']
 }
 </script>
 

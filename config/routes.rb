@@ -8,6 +8,6 @@ Rails.application.routes.draw do
       get :avatar, on: :member
     end
 
-    resources :comments, only: %i[create]
+    resources :comments, only: %i[create destroy]
   end
 end

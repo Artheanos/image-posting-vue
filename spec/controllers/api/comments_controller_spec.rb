@@ -27,4 +27,26 @@ RSpec.describe Api::CommentsController, type: :controller do
       end
     end
   end
+
+  describe '#destroy' do
+    let(:comment) { create(:comment) }
+    let(:comment_id) { comment.id }
+    let(:action) { delete :destroy, params: { id: comment_id } }
+
+    context 'when params are valid' do
+      it 'deletes a comment' do
+        comment
+        expect { action }.to change { Comment.count }.by(-1)
+      end
+    end
+
+    context 'when params are invalid' do
+      let(:comment_id) { comment.id + 1 }
+
+      it 'does not delete a comment' do
+        comment
+        expect { action }.to change { Comment.count }.by 0
+      end
+    end
+  end
 end
