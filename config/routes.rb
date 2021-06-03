@@ -7,5 +7,7 @@ Rails.application.routes.draw do
     resources :image_posts, only: %i[create index show destroy] do
       get :avatar, on: :member
     end
+
+    resources :comments, only: %i[create]
   end
 end
