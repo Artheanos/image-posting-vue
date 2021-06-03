@@ -25,7 +25,7 @@
             </md-button>
           </div>
 
-          <md-card-expand-trigger v-if="post.comment_count > 0">
+          <md-card-expand-trigger>
             <md-button class="md-icon-button" @mousedown="updateComments">
               <md-icon>keyboard_arrow_down</md-icon>
             </md-button>
@@ -34,6 +34,7 @@
 
         <md-card-expand-content>
           <md-card-content>
+            <image-comment-form @post_id="post.id"/>
             <image-comment v-for="comment in comments" :content="comment.content"/>
           </md-card-content>
         </md-card-expand-content>
@@ -48,9 +49,10 @@
 import axios from "axios";
 import {routesBuilder} from "../../routesBuilder";
 import ImageComment from "./image-comment";
+import ImageCommentForm from "./image-comment-form";
 
 export default {
-  components: {ImageComment},
+  components: {ImageCommentForm, ImageComment},
   data: () => ({
     deleteActive: false,
     deleted: false,
