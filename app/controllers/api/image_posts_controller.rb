@@ -2,8 +2,10 @@
 
 module Api
   class ImagePostsController < ApplicationController
+    before_action :set_image_post, only: %i[show delete]
+
     def index
-      render json: ImagePost.all
+      render json: ImagePost.all.reverse_order
     end
 
     def create
@@ -17,7 +19,12 @@ module Api
     end
 
     def show
-      render json: ImagePost.find(params[:id])
+      render json: @image_post
+    end
+
+    def delete
+      @image_post.delete
+      render json: {}, status: :ok
     end
 
     def avatar
@@ -28,6 +35,10 @@ module Api
 
     def create_params
       params.require(:image_post).permit(:header, :image)
+    end
+
+    def set_image_post
+      @image_post = ImagePost.find(params[:id])
     end
   end
 end
