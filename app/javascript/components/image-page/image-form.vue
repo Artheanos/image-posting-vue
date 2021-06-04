@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="image-form">
     <form novalidate class="md-layout" @submit.prevent="validateUser">
       <md-card class="md-layout-item md-size-50 md-small-size-100">
         <md-card-header>
@@ -96,7 +96,7 @@ export default {
       this.sending = false
       this.clearForm()
     },
-    handleSubmit: async function (event) {
+    async handleSubmit(event) {
       this.sending = true
       {
         const data = new FormData();
@@ -125,5 +125,8 @@ export default {
   top: 0;
   right: 0;
   left: 0;
+}
+.image-form {
+  margin-bottom: 3rem;
 }
 </style>
