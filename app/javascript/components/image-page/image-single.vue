@@ -14,7 +14,7 @@
       </md-card-header>
 
       <md-card-media>
-        <a :href="post.image"><img :src="post.image" :alt="post.header"/></a>
+        <a :href="post.image" target="_blank"><img :src="post.image" :alt="post.header"/></a>
       </md-card-media>
 
       <md-card-expand>

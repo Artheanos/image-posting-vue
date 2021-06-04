@@ -1,8 +1,19 @@
 # frozen_string_literal: true
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+
+require 'factory_bot'
+
+def random_image
+  Rack::Test::UploadedFile.new(Dir.glob("#{Rails.root}/spec/files/images/img_*").sample, 'image/png')
+end
+
+posts = [
+  ImagePost.create(header: Faker::Movies::StarWars.planet, image: random_image),
+  ImagePost.create(header: Faker::Movies::StarWars.planet, image: random_image),
+  ImagePost.create(header: Faker::Movies::StarWars.planet, image: random_image)
+]
+
+posts.each do |post|
+  3.times do
+    Comment.create(content: Faker::Movies::StarWars.quote, image_post: post)
+  end
+end
