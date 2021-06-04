@@ -9,7 +9,7 @@
 
 <script>
 import axios from "axios";
-import {routesBuilder} from "../../routesBuilder";
+import {routesBuilder} from "../../../routesBuilder";
 
 export default {
   props: ['comment'],

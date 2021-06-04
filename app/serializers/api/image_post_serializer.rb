@@ -2,7 +2,7 @@
 
 module Api
   class ImagePostSerializer < ApplicationSerializer
-    attributes :id, :header, :image, :comment_count
+    attributes :id, :header, :image, :comment_count, :created_at
 
     include Rails.application.routes.url_helpers
 

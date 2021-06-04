@@ -1,77 +1,43 @@
-/* eslint no-console: 0 */
-// Run this example by adding <%= javascript_pack_tag 'hello_vue' %> (and
-// <%= stylesheet_pack_tag 'hello_vue' %> if you have styles in your component)
-// to the head of your layout file,
-// like app/views/layouts/application.html.erb.
-// All it does is render <div>Hello Vue</div> at the bottom of the page.
+// This file is automatically compiled by Webpack, along with any other files
+// present in this directory. You're encouraged to place your actual application logic in
+// a relevant structure within app/javascript and only use these pack files to reference
+// that code so it'll be compiled.
 
-import Vue from 'vue'
-import App from '../components/app.vue'
+// require("@rails/ujs").start()
+// require("turbolinks").start()
+// require("@rails/activestorage").start()
+// require("channels")
 
+import Vue from 'vue/dist/vue.esm';
+import VueRouter from "vue-router";
+import Page404 from '../components/404/page-404'
+import App from '../components/app'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
 
-document.addEventListener('DOMContentLoaded', () => {
-    Vue.use(VueMaterial);
-    const app = new Vue({
-        render: h => h(App)
-    }).$mount()
-    document.body.appendChild(app.$el)
+const router = new VueRouter({
+    mode: 'history',
+    routes: [
+        {path: '/', component: App, name: 'app'},
 
-    console.log(app)
-})
+        {path: '/404', component: Page404, name: 'page'},
+        {path: '*', redirect: '/404'}
+    ]
+});
 
+Vue.use(VueMaterial)
+Vue.use(VueRouter)
+const app = new Vue({
+    router,
+}).$mount('#app')
 
-// The above code uses Vue without the compiler, which means you cannot
-// use Vue to target elements in your existing html templates. You would
-// need to always use single file components.
-// To be able to target elements in your existing html/erb templates,
-// comment out the above code and uncomment the below
-// Add <%= javascript_pack_tag 'hello_vue' %> to your layout
-// Then add this markup to your html template:
-//
-// <div id='hello'>
-//   {{message}}
-//   <app></app>
-// </div>
-
-
-// import Vue from 'vue/dist/vue.esm'
-// import App from '../app.vue'
-//
 // document.addEventListener('DOMContentLoaded', () => {
-//   const app = new Vue({
-//     el: '#hello',
-//     data: {
-//       message: "Can you say hello?"
-//     },
-//     components: { App }
-//   })
-// })
+//     Vue.use(VueMaterial);
+//     const app = new Vue({
+//         render: h => h(App)
+//     }).$mount()
+//     document.body.appendChild(app.$el)
 //
-//
-//
-// If the project is using turbolinks, install 'vue-turbolinks':
-//
-// yarn add vue-turbolinks
-//
-// Then uncomment the code block below:
-//
-// import TurbolinksAdapter from 'vue-turbolinks'
-// import Vue from 'vue/dist/vue.esm'
-// import App from '../app.vue'
-//
-// Vue.use(TurbolinksAdapter)
-//
-// document.addEventListener('turbolinks:load', () => {
-//   const app = new Vue({
-//     el: '#hello',
-//     data: () => {
-//       return {
-//         message: "Can you say hello?"
-//       }
-//     },
-//     components: { App }
-//   })
+//     console.log(app)
 // })

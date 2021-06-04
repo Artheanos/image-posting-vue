@@ -11,6 +11,7 @@
     <md-card class="image-single">
       <md-card-header>
         <div class="md-title">{{ post.header }}</div>
+        <div class="md-subhead">{{ post.created_at }}</div>
       </md-card-header>
 
       <md-card-media>
@@ -49,12 +50,16 @@
 <script>
 import axios from "axios";
 import {routesBuilder} from "../../routesBuilder";
-import ImageComment from "./image-comment";
-import ImageCommentForm from "./image-comment-form";
+import ImageComment from "./comment/image-comment";
+import ImageCommentForm from "./comment/image-comment-form";
+import {formatDate} from "../../utils/general";
 
 export default {
   components: {ImageCommentForm, ImageComment},
   props: ['post'],
+  beforeMount() {
+    this.post.created_at = formatDate(this.post.created_at)
+  },
   data: () => ({
     deleteActive: false,
     deleted: false,
