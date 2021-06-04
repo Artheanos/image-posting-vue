@@ -7,6 +7,11 @@ export const routesBuilder = {
         comments: {
             root: '/api/comments',
             edit: (comment_id) => `/api/comments/${comment_id}`
+        },
+        auth: {
+            login: {
+                root: '/api/auth/login'
+            }
         }
     }
 }

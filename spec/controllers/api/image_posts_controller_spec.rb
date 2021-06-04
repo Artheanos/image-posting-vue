@@ -3,12 +3,14 @@
 require 'rails_helper'
 
 RSpec.describe Api::ImagePostsController, type: :controller do
+  let(:author) { create(:user) }
   let(:image_post) { create(:image_post) }
   let(:image_post_id) { image_post.id }
   let(:create_params) do
     {
       header: 'hello world',
-      image: Rack::Test::UploadedFile.new("#{Rails.root}/spec/files/images/img_1.jpg", 'image/png')
+      image: Rack::Test::UploadedFile.new("#{Rails.root}/spec/files/images/img_1.jpg", 'image/png'),
+      user_id: author.id
     }
   end
 

@@ -1,10 +1,12 @@
 <template>
-  <div id="image_page">
-    <image-form @updatePosts="updatePosts"></image-form>
-    <div class="md-content">
-      <image-single v-for="post in this.posts" :key="post.id" :post="post" @updatePosts="updatePosts"/>
+  <layout>
+    <div id="image_page">
+      <image-form @updatePosts="updatePosts"></image-form>
+      <div class="md-content">
+        <image-single v-for="post in this.posts" :key="post.id" :post="post" @updatePosts="updatePosts"/>
+      </div>
     </div>
-  </div>
+  </layout>
 </template>
 
 <script>
@@ -13,8 +15,10 @@ import {routesBuilder} from "../../routesBuilder";
 import ImageForm from './image-form'
 import ImageSingle from './image-single'
 
+import Layout from '../bar-test';
+
 export default {
-  components: {ImageSingle, ImageForm},
+  components: {ImageSingle, ImageForm, Layout},
   data: function () {
     return {
       posts: [],

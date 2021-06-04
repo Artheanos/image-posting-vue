@@ -35,7 +35,7 @@ module Api
     private
 
     def create_params
-      params.require(:image_post).permit(:header, :image)
+      params.require(:image_post).permit(:header, :image, :user_id)
     end
 
     def set_image_post

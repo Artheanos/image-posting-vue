@@ -2,15 +2,12 @@
 
 Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
-    resources :image_posts, only: %i[create index show destroy] do
-      get :avatar, on: :member
-    end
-
+    resources :image_posts, only: %i[create index show destroy]
     resources :comments, only: %i[create destroy]
-  end
 
-  namespace :rails do
-    get '/*path', to: ActiveStorage::Engine
+    namespace :auth do
+      resources :login, only: %i[create]
+    end
   end
 
   root 'welcome#index'

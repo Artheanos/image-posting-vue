@@ -5,4 +5,5 @@ class ImagePost < ApplicationRecord
   validates :header, presence: true
 
   has_many :comments, dependent: :destroy
+  belongs_to :user
 end

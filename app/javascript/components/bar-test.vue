@@ -1,6 +1,6 @@
 <template>
   <div class="page-container">
-    <md-app md-mode="reveal">
+    <md-app md-mode="fixed" style="min-height: 100vh">
       <md-app-toolbar class="md-black-green-dark">
         <md-button class="md-icon-button" @click="menuVisible = !menuVisible">
           <md-icon>menu</md-icon>
@@ -12,7 +12,12 @@
         <md-toolbar class="md-transparent" md-elevation="0">Navigation</md-toolbar>
 
         <md-list>
-          <md-list-item href="/page-404">
+          <md-list-item to="/" exact>
+            <md-icon>home</md-icon>
+            <span class="md-list-item-text">Home</span>
+          </md-list-item>
+
+          <md-list-item to="/login">
             <md-icon>person</md-icon>
             <span class="md-list-item-text">Login</span>
           </md-list-item>
@@ -25,7 +30,7 @@
       </md-app-drawer>
 
       <md-app-content>
-        <image-page/>
+        <slot/>
       </md-app-content>
     </md-app>
   </div>
@@ -46,11 +51,8 @@
 
 <script>
 
-import ImagePage from "./image-page/image-page";
-
 export default {
   name: 'Reveal',
-  components: {ImagePage},
   data: () => ({
     menuVisible: false
   })
