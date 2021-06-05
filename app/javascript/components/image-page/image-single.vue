@@ -11,7 +11,10 @@
     <md-card class="image-single">
       <md-card-header>
         <div class="md-title">{{ post.header }}</div>
-        <div class="md-subhead">{{ post.created_at }}</div>
+        <div class="md-subhead" style="display: flex; justify-content: space-between">
+          <span>{{ post.created_at }}</span>
+          <span>{{ post.user.email }}</span>
+        </div>
       </md-card-header>
 
       <md-card-media>

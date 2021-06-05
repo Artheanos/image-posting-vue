@@ -2,10 +2,10 @@
   <div class="input-comment-form">
     <form @submit.prevent="handleSubmit">
       <md-field>
-        <label>Content</label>
+        <label>Comment</label>
         <md-input v-model="form.content"/>
       </md-field>
-      <md-button class="md-primary" type="submit">Comment</md-button>
+      <md-button class="md-primary" type="submit">Post comment</md-button>
     </form>
   </div>
 </template>

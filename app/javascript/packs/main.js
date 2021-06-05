@@ -14,7 +14,7 @@ import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
 
-import Page404 from '../components/404/page-404'
+import Page404 from '../components/common/page-404'
 import App from '../components/app'
 import ImagePage from '../components/image-page/image-page'
 import LoginPage from '../components/user/login-page/login-page';
@@ -25,8 +25,8 @@ const router = new VueRouter({
         {path: '/', component: ImagePage, name: 'app'},
         {path: '/login', component: LoginPage, name: 'login'},
 
-        {path: '/404', component: Page404, name: 'page'},
-        {path: '*', redirect: '/404'}
+        {path: '*', component: Page404, name: 'page'},
+        // {path: '*', redirect: '/'}
     ]
 });
 

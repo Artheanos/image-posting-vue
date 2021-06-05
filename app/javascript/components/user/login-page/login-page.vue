@@ -10,7 +10,6 @@
 <script>
 import Layout from '../../bar-test'
 import LoginForm from './login-form';
-import axios from "axios";
 
 export default {
   components: {LoginForm, Layout}

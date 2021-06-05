@@ -8,11 +8,11 @@ module Api
       end
 
       def create
-        credentials = ::AuthenticateUser.new(login_params[:email], login_params[:password]).call
-        if credentials
-          render json: { credentials: credentials }
+        token = Api::Auth::AuthenticateUser.new(login_params[:email], login_params[:password]).call
+        if token
+          render json: { token: token }
         else
-          render json: {}
+          render json: {}, status: :unauthorized
         end
       end
 

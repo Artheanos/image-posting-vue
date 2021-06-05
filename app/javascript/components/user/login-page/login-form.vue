@@ -31,7 +31,7 @@
         </md-card-actions>
       </md-card>
 
-      <md-snackbar :md-active.sync="userSaved">The user {{ lastUser }} was saved with success!</md-snackbar>
+      <md-snackbar :md-active.sync="loginFailed">Invalid Credentials</md-snackbar>
     </form>
   </div>
 </template>
@@ -55,9 +55,8 @@ export default {
       email: null,
       password: null,
     },
-    userSaved: false,
     sending: false,
-    lastUser: null
+    loginFailed: false,
   }),
   validations: {
     form: {
@@ -81,23 +80,19 @@ export default {
         }
       }
     },
-    clearForm() {
-      this.$v.$reset()
-      this.form.email = null
-      this.form.password = null
-    },
-    resetForm() {
-      this.lastUser = `${this.form.email} ${this.form.password}`
-      this.userSaved = true
-      this.sending = false
-      this.clearForm()
-    },
     async saveUser() {
       this.sending = true
 
-      const response = await axios.post(routesBuilder.api.auth.login.root, {...this.form});
-      console.log(response.data);
-      this.resetForm()
+      try {
+        const response = await axios.post(routesBuilder.api.auth.login.root, {
+          email: this.form.email,
+          password: this.form.password,
+        });
+        console.log(response.data)
+      } catch {
+        this.loginFailed = true
+      }
+      this.sending = false
     },
     validateUser() {
       this.$v.$touch()

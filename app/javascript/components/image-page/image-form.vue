@@ -33,6 +33,7 @@
       </md-card>
 
       <md-snackbar :md-active.sync="imageSaved">The user {{ lastImage }} was saved with success!</md-snackbar>
+      <md-dialog-alert :md-active.sync="failed" md-title="Upload has failed"/>
     </form>
   </div>
 </template>
@@ -58,6 +59,7 @@ export default {
     },
     imageSaved: false,
     sending: false,
+    failed: false,
     lastImage: null,
   }),
   validations: {
@@ -88,25 +90,23 @@ export default {
       this.$v.$reset()
       this.form.header = null
       this.form.image = null
-      this.imageName = null
-    },
-    formReset() {
-      this.lastImage = `${this.form.header}`
-      this.imageSaved = true
-      this.sending = false
-      this.clearForm()
     },
     async handleSubmit(event) {
       this.sending = true
-      {
-        const data = new FormData();
-        data.append('image_post[header]', this.form.header);
-        data.append('image_post[image]', this.form.image);
-
+      const data = new FormData();
+      data.append('image_post[header]', this.form.header);
+      data.append('image_post[image]', this.form.image);
+      try {
         await axios.post(routesBuilder.api.imagePosts.root, data);
+        this.lastImage = `${this.form.header}`
+        this.imageSaved = true
+        this.sending = false
+        this.clearForm()
+        this.$emit('updatePosts')
+      } catch {
+        this.failed = true
+        this.sending = false
       }
-      this.formReset()
-      this.$emit('updatePosts');
     },
     validateUser() {
       this.$v.$touch()
@@ -126,6 +126,7 @@ export default {
   right: 0;
   left: 0;
 }
+
 .image-form {
   margin-bottom: 3rem;
 }

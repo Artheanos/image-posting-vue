@@ -18,7 +18,7 @@ module Api
 
       def user
         user = User.find_by_email(email)
-        return user if user&.authenticate(password)
+        user if user&.authenticate(password)
 
         # errors.add :user_authentication, 'invalid credentials'
       end

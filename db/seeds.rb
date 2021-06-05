@@ -6,16 +6,19 @@ def random_image
   Rack::Test::UploadedFile.new(Dir.glob("#{Rails.root}/spec/files/images/img_*").sample, 'image/png')
 end
 
-users = 3.times.map do
+random_users = 3.times.map do
   User.create(email: Faker::Internet.email, password: Faker::Internet.password)
 end
 
-posts = 3.times.map do
-  ImagePost.create(header: Faker::Movies::StarWars.planet, image: random_image, user: users.sample)
+random_posts = 3.times.map do
+  ImagePost.create(header: Faker::Movies::StarWars.planet, image: random_image, user: random_users.sample)
 end
 
-posts.each do |post|
+random_posts.each do |post|
   3.times do
     Comment.create(content: Faker::Movies::StarWars.quote, image_post: post)
   end
 end
+
+User.create(email: 'user1@user.com', password: 'user1@user.com')
+User.create(email: 'user2@user.com', password: 'user2@user.com')

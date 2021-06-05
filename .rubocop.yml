@@ -9,7 +9,11 @@ AllCops:
     - db/data_schema.rb
     - db/schema.rb
     - db/migrate/*
-    - vendor/**/*
 
 Style/Documentation:
   Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - config/routes.rb
+    - spec/**/*.rb
