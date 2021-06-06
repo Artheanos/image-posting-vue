@@ -14,6 +14,11 @@ RSpec.describe Api::Auth::LoginController, type: :controller do
     before { action }
 
     context 'when params are valid' do
+      it 'returns user_id' do
+        user_id = json_response['user_id']
+        expect(user_id).to eq user.id
+      end
+
       it 'returns valid token' do
         token = json_response['token']
         credentials = Api::Auth::JsonWebToken.decode(token)

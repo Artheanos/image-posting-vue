@@ -46,6 +46,7 @@ import {
 } from 'vuelidate/lib/validators'
 import axios from "axios";
 import {routesBuilder} from "../../../routesBuilder";
+import {setUser} from "../../../utils/auth";
 
 export default {
   name: 'FormValidation',
@@ -88,7 +89,7 @@ export default {
           email: this.form.email,
           password: this.form.password,
         });
-        console.log(response.data)
+        setUser(response.data);
       } catch {
         this.loginFailed = true
       }

@@ -12,16 +12,18 @@ module Api
         JsonWebToken.encode(user_id: user.id) if user
       end
 
-      private
-
-      attr_accessor :email, :password
-
       def user
-        user = User.find_by_email(email)
-        user if user&.authenticate(password)
+        return @user if @user
+
+        @user = User.find_by_email(email)
+        @user if @user&.authenticate(password)
 
         # errors.add :user_authentication, 'invalid credentials'
       end
+
+      private
+
+      attr_accessor :email, :password
     end
   end
 end

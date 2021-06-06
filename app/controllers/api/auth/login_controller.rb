@@ -8,9 +8,10 @@ module Api
       end
 
       def create
-        token = Api::Auth::AuthenticateUser.new(login_params[:email], login_params[:password]).call
+        authentication = Api::Auth::AuthenticateUser.new(login_params[:email], login_params[:password])
+        token = authentication.call
         if token
-          render json: { token: token }
+          render json: { token: token, user_id: authentication.user.id }
         else
           render json: {}, status: :unauthorized
         end

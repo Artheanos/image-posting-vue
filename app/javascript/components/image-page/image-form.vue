@@ -47,6 +47,7 @@ import {
 } from 'vuelidate/lib/validators'
 import axios from "axios";
 import {routesBuilder} from "../../routesBuilder";
+import {authConfig} from "../../utils/auth";
 
 export default {
   name: 'FormValidation',
@@ -97,7 +98,7 @@ export default {
       data.append('image_post[header]', this.form.header);
       data.append('image_post[image]', this.form.image);
       try {
-        await axios.post(routesBuilder.api.imagePosts.root, data);
+        await axios.post(routesBuilder.api.imagePosts.root, data, authConfig());
         this.lastImage = `${this.form.header}`
         this.imageSaved = true
         this.sending = false

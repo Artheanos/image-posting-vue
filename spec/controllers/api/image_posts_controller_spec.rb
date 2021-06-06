@@ -9,7 +9,7 @@ RSpec.describe Api::ImagePostsController, type: :controller do
   let(:create_params) do
     {
       header: 'hello world',
-      image: Rack::Test::UploadedFile.new("#{Rails.root}/spec/files/images/img_1.jpg", 'image/png'),
+      image: Rack::Test::UploadedFile.new("#{Rails.root}/spec/files/images/img_1.jpg", 'image/png')
     }
   end
   let(:json_response) do

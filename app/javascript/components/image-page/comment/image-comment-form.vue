@@ -13,6 +13,7 @@
 <script>
 import axios from "axios";
 import {routesBuilder} from "../../../routesBuilder";
+import {authConfig} from "../../../utils/auth";
 
 export default {
   props: ['post_id'],
@@ -26,7 +27,7 @@ export default {
   },
   methods: {
     async handleSubmit() {
-      await axios.post(routesBuilder.api.comments.root, {comment: this.form})
+      await axios.post(routesBuilder.api.comments.root, {comment: this.form}, authConfig())
       this.$emit('updateComments')
       this.form.content = ''
     },

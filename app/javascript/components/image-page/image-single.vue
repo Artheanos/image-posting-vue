@@ -24,7 +24,7 @@
       <md-card-expand>
         <md-card-actions md-alignment="space-between">
           <div>
-            <md-button class="md-icon-button" @click="deleteActive = true">
+            <md-button class="md-icon-button" @click="deleteActive = true" v-if="isOwner">
               <md-icon>delete</md-icon>
             </md-button>
           </div>
@@ -61,6 +61,7 @@ import {routesBuilder} from "../../routesBuilder";
 import ImageComment from "./comment/image-comment";
 import ImageCommentForm from "./comment/image-comment-form";
 import {formatDate} from "../../utils/general";
+import {authConfig, getUserId} from "../../utils/auth";
 
 export default {
   components: {ImageCommentForm, ImageComment},
@@ -68,12 +69,15 @@ export default {
   beforeMount() {
     this.post.created_at = formatDate(this.post.created_at)
   },
-  data: () => ({
-    deleteActive: false,
-    deleted: false,
-    comments: [],
-    commentsLoaded: false,
-  }),
+  data() {
+    return {
+      deleteActive: false,
+      deleted: false,
+      comments: [],
+      commentsLoaded: false,
+      isOwner: getUserId() === this.post.user.id
+    }
+  },
   methods: {
     async onConfirm() {
       await this.deleteImage()
@@ -81,7 +85,7 @@ export default {
       this.$emit('updatePosts')
     },
     async deleteImage() {
-      console.log(await axios.delete(routesBuilder.api.imagePosts.edit(this.post.id)));
+      await axios.delete(routesBuilder.api.imagePosts.edit(this.post.id), authConfig());
     },
     async updateComments() {
       const detailedPost = (await axios.get(routesBuilder.api.imagePosts.edit(this.post.id))).data;
