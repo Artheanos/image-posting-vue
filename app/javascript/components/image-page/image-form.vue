@@ -1,7 +1,7 @@
 <template>
   <div class="image-form">
     <form novalidate class="md-layout" @submit.prevent="validateUser">
-      <md-card class="md-layout-item md-size-50 md-small-size-100">
+      <md-card class="md-layout-item md-size-100">
         <md-card-header>
           <div class="md-title">New Image</div>
         </md-card-header>

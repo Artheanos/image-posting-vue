@@ -2,6 +2,6 @@
 
 module Api
   class UserSerializer < ApplicationSerializer
-    attributes :email
+    attributes :id, :email
   end
 end

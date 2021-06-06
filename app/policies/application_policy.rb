@@ -51,8 +51,6 @@ class ApplicationPolicy
     end
   end
 
-  private
-
   def logged_in?
     user.present?
   end

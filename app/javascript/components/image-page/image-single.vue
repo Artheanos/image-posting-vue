@@ -100,7 +100,7 @@ export default {
 
 <style>
 .image-single {
-  max-width: 500px;
+  /*max-width: 500px;*/
   margin-bottom: 4rem;
 }
 </style>

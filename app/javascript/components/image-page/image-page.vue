@@ -1,9 +1,11 @@
 <template>
   <layout>
-    <div id="image_page">
-      <image-form @updatePosts="updatePosts"></image-form>
-      <div class="md-content">
-        <image-single v-for="post in this.posts" :key="post.id" :post="post" @updatePosts="updatePosts"/>
+    <div class="image-page">
+      <div class="container">
+        <image-form @updatePosts="updatePosts"/>
+        <div class="images">
+          <image-single v-for="post in this.posts" :key="post.id" :post="post" @updatePosts="updatePosts"/>
+        </div>
       </div>
     </div>
   </layout>
@@ -36,3 +38,30 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.image-page {
+  display: flex;
+  width: 100%;
+  //flex-direction: row;
+  justify-content: center;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+  }
+
+  @media (min-width: 768px) {
+    .container {
+      //width: 100%;
+      max-width: 100%;
+      flex-direction: row;
+
+      .images {
+        max-width: 500px;
+      }
+    }
+  }
+}
+</style>
