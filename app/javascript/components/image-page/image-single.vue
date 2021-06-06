@@ -39,8 +39,13 @@
         <md-card-expand-content>
           <md-card-content>
             <image-comment-form :post_id="post.id" @updateComments="updateComments"/>
-            <image-comment v-for="comment in comments" :key="comment.id" :comment="comment"
-                           @updateComments="updateComments"/>
+            <div v-if="commentsLoaded">
+              <image-comment v-for="comment in comments" :key="comment.id" :comment="comment"
+                             @updateComments="updateComments"/>
+            </div>
+            <div style="text-align: center; margin-bottom: 2rem" v-else>
+              <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
+            </div>
           </md-card-content>
         </md-card-expand-content>
       </md-card-expand>
