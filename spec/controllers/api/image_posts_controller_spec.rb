@@ -10,7 +10,6 @@ RSpec.describe Api::ImagePostsController, type: :controller do
     {
       header: 'hello world',
       image: Rack::Test::UploadedFile.new("#{Rails.root}/spec/files/images/img_1.jpg", 'image/png'),
-      user_id: author.id
     }
   end
   let(:json_response) do

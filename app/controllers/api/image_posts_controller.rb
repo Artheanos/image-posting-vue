@@ -10,7 +10,7 @@ module Api
 
     def create
       authorize ImagePost
-      image_post = ImagePost.new(create_params)
+      image_post = ImagePost.new(create_params.merge(user: current_user))
 
       if image_post.save
         render json: {}, status: :created
@@ -37,7 +37,7 @@ module Api
     private
 
     def create_params
-      params.require(:image_post).permit(:header, :image, :user_id)
+      params.require(:image_post).permit(:header, :image)
     end
 
     def set_image_post
