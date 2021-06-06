@@ -1,24 +1,46 @@
-# README
+Ruby Version `3.0.0`
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Installation
 
-Things you may want to cover:
+Install node dependencies
 
-* Ruby version
+```shell
+yarn install
+```
 
-* System dependencies
+Install bundler
 
-* Configuration
+```shell
+gem install bundler
+```
 
-* Database creation
+Use it to install gems
 
-* Database initialization
+```shell
+bundle install
+```
 
-* How to run the test suite
+Create and configure database
 
-* Services (job queues, cache servers, search engines, etc.)
+```shell
+rails db:create
+rails db:migrate
+rails active_storage:install
+rails db:seed
+```
+### Running
 
-* Deployment instructions
+This app uses foreman to start rails server and webpack-dev-server with one command. The exact commands are specified
+in `Procfile`
 
-* ...
+Run the app
+
+```shell
+bundle exec foreman start
+```
+
+### Testing
+
+This app uses RSpec
+
+Type `rspec` in the root directory to run all tests
