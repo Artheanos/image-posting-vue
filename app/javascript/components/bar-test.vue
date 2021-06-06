@@ -5,7 +5,7 @@
         <md-button class="md-icon-button" @click="menuVisible = !menuVisible">
           <md-icon>menu</md-icon>
         </md-button>
-        <span class="md-title">Funny Images</span>
+        <span class="md-title">Image Posting with Vue</span>
       </md-app-toolbar>
 
       <md-app-drawer :md-active.sync="menuVisible">

@@ -28,6 +28,7 @@ rails db:migrate
 rails active_storage:install
 rails db:seed
 ```
+
 ### Running
 
 This app uses foreman to start rails server and webpack-dev-server with one command. The exact commands are specified
@@ -44,3 +45,8 @@ bundle exec foreman start
 This app uses RSpec
 
 Type `rspec` in the root directory to run all tests
+
+###
+Seeds create a user with these credentials:
+* email `user1@user.com`
+* password `user1@user.com`

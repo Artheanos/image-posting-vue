@@ -1,7 +1,6 @@
 <template>
   <layout>
-    <div id="image_page">
-      <h1>LOL</h1>
+    <div class="login-page">
       <login-form/>
     </div>
   </layout>
