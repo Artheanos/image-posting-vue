@@ -18,12 +18,14 @@ import Page404 from '../components/common/page-404'
 import App from '../components/app'
 import ImagePage from '../components/image-page/image-page'
 import LoginPage from '../components/user/login-page/login-page';
+import LogoutPage from '../components/user/logout-page';
 
 const router = new VueRouter({
     mode: 'history',
     routes: [
         {path: '/', component: ImagePage, name: 'home'},
         {path: '/login', component: LoginPage, name: 'login'},
+        {path: '/logout', component: LogoutPage, name: 'logout'},
 
         {path: '*', component: Page404, name: 'page'},
         // {path: '*', redirect: '/'}

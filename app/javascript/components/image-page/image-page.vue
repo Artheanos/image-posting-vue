@@ -2,7 +2,7 @@
   <layout>
     <div class="image-page">
       <div class="container">
-        <image-form @updatePosts="updatePosts"/>
+        <image-form @updatePosts="updatePosts" v-if="loggedIn()"/>
         <div class="images">
           <image-single v-for="post in this.posts" :key="post.id" :post="post" @updatePosts="updatePosts"/>
         </div>
@@ -14,9 +14,9 @@
 <script>
 import axios from "axios";
 import {routesBuilder} from "../../routesBuilder";
+import {loggedIn} from "../../utils/auth";
 import ImageForm from './image-form'
 import ImageSingle from './image-single'
-
 import Layout from '../bar-test';
 
 export default {
@@ -32,6 +32,7 @@ export default {
         this.posts = res.data;
       })
     },
+    loggedIn
   },
   beforeMount() {
     this.updatePosts()

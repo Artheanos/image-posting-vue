@@ -12,6 +12,15 @@ export function setUser(loginResponse) {
     localStorage.setItem('token', loginResponse.token)
 }
 
+export function unsetUser() {
+    localStorage.removeItem('userId')
+    localStorage.removeItem('token')
+}
+
+export function loggedIn() {
+    return localStorage.getItem('userId') !== null
+}
+
 export function getUserId() {
     return +localStorage.getItem('userId')
 }
