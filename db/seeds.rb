@@ -16,7 +16,7 @@ end
 
 random_posts.each do |post|
   3.times do
-    Comment.create(content: Faker::Movies::StarWars.quote, image_post: post)
+    Comment.create(content: Faker::Movies::StarWars.quote, image_post: post, user: random_users.sample)
   end
 end
 
