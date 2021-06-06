@@ -1,10 +1,10 @@
 <template>
-  <div class="image-comment" style="display: flex; justify-content: space-between">
+  <md-content class="image-comment" style="display: flex; justify-content: space-between">
     <div>{{ comment.content }}</div>
     <md-button class="md-icon-button" @click="deleteComment" v-if="isOwner">
       <md-icon>delete</md-icon>
     </md-button>
-  </div>
+  </md-content>
 </template>
 
 <script>
@@ -27,3 +27,11 @@ export default {
   }
 }
 </script>
+
+<style>
+.image-comment {
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+  margin: 1rem 0;
+  padding: 1rem;
+}
+</style>
