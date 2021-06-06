@@ -3,7 +3,7 @@
     <form @submit.prevent="handleSubmit">
       <md-field>
         <label>Comment</label>
-        <md-input v-model="form.content"/>
+        <md-textarea v-model="form.content" md-autogrow/>
       </md-field>
       <md-button class="md-primary" type="submit">Post comment</md-button>
     </form>
@@ -37,7 +37,7 @@ export default {
 
 <style>
 .input-comment-form {
-  padding: 1rem 3rem;
+  padding: 0 3rem;
   margin-bottom: 2rem;
 }
 </style>
