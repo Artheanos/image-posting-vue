@@ -13,6 +13,10 @@ RSpec.describe Api::ImagePostsController, type: :controller do
       user_id: author.id
     }
   end
+  let(:json_response) do
+    action
+    JSON.parse(response.body)
+  end
 
   describe '#create' do
     it 'creates image_post' do
@@ -23,10 +27,7 @@ RSpec.describe Api::ImagePostsController, type: :controller do
   end
 
   describe '#index' do
-    let(:json_response) do
-      get :index
-      JSON.parse(response.body)
-    end
+    let(:action) { get :index }
 
     it 'lists all image_posts' do
       create(:image_post, header: 'header1')
@@ -45,10 +46,7 @@ RSpec.describe Api::ImagePostsController, type: :controller do
   end
 
   describe '#show' do
-    let(:json_response) do
-      get :show, params: { id: image_post_id }
-      JSON.parse(response.body)
-    end
+    let(:action) { get :show, params: { id: image_post_id } }
 
     context 'when params are valid' do
       it 'returns the image_post' do
@@ -60,7 +58,12 @@ RSpec.describe Api::ImagePostsController, type: :controller do
       let(:image_post_id) { image_post.id + 1 }
 
       it 'does not return the image_post' do
-        image_post
+        expect(json_response).to eq({})
+      end
+
+      it 'returns not_found status' do
+        json_response
+        expect(response).to have_http_status(:not_found)
       end
     end
   end
