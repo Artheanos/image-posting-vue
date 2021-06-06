@@ -11,6 +11,9 @@ export const routesBuilder = {
         auth: {
             login: {
                 root: '/api/auth/login'
+            },
+            register: {
+                root: '/api/auth/register'
             }
         }
     }

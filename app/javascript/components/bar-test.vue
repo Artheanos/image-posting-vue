@@ -22,7 +22,12 @@
             <span class="md-list-item-text">Login</span>
           </md-list-item>
 
-          <md-list-item to="/logout">
+          <md-list-item to="/register">
+            <md-icon>person_add</md-icon>
+            <span class="md-list-item-text">Register</span>
+          </md-list-item>
+
+          <md-list-item to="/logout" v-if="loggedIn()">
             <md-icon>delete</md-icon>
             <span class="md-list-item-text">Logout</span>
           </md-list-item>
@@ -50,11 +55,15 @@
 </style>
 
 <script>
+import {loggedIn} from "../utils/auth";
 
 export default {
   name: 'Reveal',
   data: () => ({
     menuVisible: false
-  })
+  }),
+  methods: {
+    loggedIn
+  }
 }
 </script>

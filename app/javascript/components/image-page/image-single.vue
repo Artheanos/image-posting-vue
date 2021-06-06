@@ -38,7 +38,7 @@
 
         <md-card-expand-content>
           <md-card-content>
-            <image-comment-form :post_id="post.id" @updateComments="updateComments"/>
+            <image-comment-form :post_id="post.id" @updateComments="updateComments" v-if="loggedIn()"/>
             <div v-if="commentsLoaded">
               <image-comment v-for="comment in comments" :key="comment.id" :comment="comment"
                              @updateComments="updateComments"/>
@@ -61,7 +61,7 @@ import {routesBuilder} from "../../routesBuilder";
 import ImageComment from "./comment/image-comment";
 import ImageCommentForm from "./comment/image-comment-form";
 import {formatDate} from "../../utils/general";
-import {authConfig, getUserId} from "../../utils/auth";
+import {authConfig, getUserId, loggedIn} from "../../utils/auth";
 
 export default {
   components: {ImageCommentForm, ImageComment},
@@ -97,7 +97,8 @@ export default {
         return
       }
       this.updateComments()
-    }
+    },
+    loggedIn
   },
 }
 </script>
