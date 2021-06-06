@@ -9,6 +9,7 @@ module Api
     end
 
     def create
+      authorize ImagePost
       image_post = ImagePost.new(create_params)
 
       if image_post.save
@@ -23,6 +24,7 @@ module Api
     end
 
     def destroy
+      authorize @image_post
       @image_post.image.purge
       @image_post.destroy
       render json: {}, status: :ok

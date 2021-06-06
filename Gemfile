@@ -8,16 +8,16 @@ ruby '3.0.0'
 gem 'active_model_serializers'
 gem 'bcrypt'
 gem 'bootsnap', '>= 1.4.4', require: false
+gem 'foreman'
 gem 'jbuilder', '~> 2.7'
 gem 'jwt'
 gem 'puma', '~> 5.0'
+gem 'pundit'
 gem 'rails', '~> 6.1.3', '>= 6.1.3.2'
 gem 'sass-rails', '>= 6'
 gem 'sqlite3', '~> 1.4'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.0'
-
-gem 'foreman'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
