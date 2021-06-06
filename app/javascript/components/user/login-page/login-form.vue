@@ -90,10 +90,11 @@ export default {
           password: this.form.password,
         });
         setUser(response.data);
+        await this.$router.push({name: 'home'});
       } catch {
         this.loginFailed = true
+        this.sending = false
       }
-      this.sending = false
     },
     validateUser() {
       this.$v.$touch()
