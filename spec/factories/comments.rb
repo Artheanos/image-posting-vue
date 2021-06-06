@@ -4,5 +4,6 @@ FactoryBot.define do
   factory :comment do
     content { 'hello this is a comment' }
     image_post
+    user
   end
 end

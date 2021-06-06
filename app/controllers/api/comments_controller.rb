@@ -5,7 +5,8 @@ module Api
     before_action :set_comment, only: %i[destroy]
 
     def create
-      comment = Comment.new(create_params)
+      authorize Comment
+      comment = Comment.new(create_params.merge(user: current_user))
 
       if comment.save
         render json: {}, status: :created
@@ -15,6 +16,7 @@ module Api
     end
 
     def destroy
+      authorize @comment
       @comment.destroy
       render json: {}, status: :ok
     end
@@ -28,7 +30,7 @@ module Api
     def set_comment
       @comment = Comment.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-      render json: {}, status: :unprocessable_entity
+      render json: {}, status: :not_found
     end
   end
 end
