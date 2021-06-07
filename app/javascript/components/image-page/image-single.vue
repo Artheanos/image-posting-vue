@@ -38,7 +38,7 @@
 
         <md-card-expand-content>
           <md-card-content>
-            <image-comment-form :post_id="post.id" @updateComments="updateComments" v-if="loggedIn()"/>
+            <image-comment-form :post_id="post.id" @updateComments="updateComments" v-if="loggedIn"/>
             <div v-if="commentsLoaded">
               <image-comment v-for="comment in comments" :key="comment.id" :comment="comment"
                              @updateComments="updateComments"/>
@@ -75,7 +75,8 @@ export default {
       deleted: false,
       comments: [],
       commentsLoaded: false,
-      isOwner: getUserId() === this.post.user.id
+      isOwner: getUserId() === this.post.user.id,
+      loggedIn: loggedIn()
     }
   },
   methods: {
@@ -97,8 +98,7 @@ export default {
         return
       }
       this.updateComments()
-    },
-    loggedIn
+    }
   },
 }
 </script>

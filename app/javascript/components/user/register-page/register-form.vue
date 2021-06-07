@@ -22,6 +22,14 @@
             <span class="md-error" v-if="!$v.form.password.required">The password is required</span>
             <span class="md-error" v-else-if="!$v.form.password.password">Invalid password</span>
           </md-field>
+
+          <md-field :class="getValidationClass('confirmPassword')" :md-toggle-password="false">
+            <label for="confirmPassword">Password</label>
+            <md-input type="password" name="confirmPassword" id="confirmPassword" autocomplete="confirmPassword"
+                      v-model="form.confirmPassword" :disabled="sending" placeholder="Confirm Password"/>
+            <span class="md-error" v-if="!$v.form.confirmPassword.required">The confirmPassword is required</span>
+            <span class="md-error" v-else-if="!$v.form.confirmPassword.confirmPassword">Passwords don't match</span>
+          </md-field>
         </md-card-content>
 
         <md-progress-bar md-mode="indeterminate" v-if="sending"/>
@@ -31,8 +39,8 @@
         </md-card-actions>
       </md-card>
 
-      <md-snackbar :md-active.sync="registerFailed">Error</md-snackbar>
-      <md-snackbar :md-active.sync="registerSucceeded">Error</md-snackbar>
+      <md-snackbar :md-active.sync="registerFailed">{{ errorMessage }}</md-snackbar>
+      <md-snackbar :md-active.sync="registerSucceeded">You have successfully registered</md-snackbar>
     </form>
   </div>
 </template>
@@ -43,7 +51,8 @@ import {
   required,
   email,
   minLength,
-  maxLength
+  maxLength,
+  sameAs
 } from 'vuelidate/lib/validators'
 import axios from "axios";
 import {routesBuilder} from "../../../routesBuilder";
@@ -59,19 +68,26 @@ export default {
     sending: false,
     registerFailed: false,
     registerSucceeded: false,
+
+    errorMessage: 'Error',
+    userExists: false
   }),
   validations: {
     form: {
       password: {
         required,
         minLength: minLength(5),
-        maxLength: maxLength(100)
+        maxLength: maxLength(100),
+      },
+      confirmPassword: {
+        required,
+        sameAs: sameAs('password')
       },
       email: {
         required,
         email,
         maxLength: maxLength(100)
-      }
+      },
     }
   },
   methods: {
@@ -84,7 +100,7 @@ export default {
         }
       }
     },
-    async saveUser() {
+    async handleSubmit() {
       this.sending = true
 
       try {
@@ -95,7 +111,9 @@ export default {
         setUser(response.data)
         this.registerSucceeded = true
         await this.$router.push({name: 'home'})
-      } catch {
+      } catch (error) {
+        this.errorMessage = error.response.data.errors.base
+        this.userExists = true
         this.registerFailed = true
         this.sending = false
       }
@@ -104,7 +122,7 @@ export default {
       this.$v.$touch()
 
       if (!this.$v.$invalid) {
-        this.saveUser()
+        this.handleSubmit()
       }
     }
   }

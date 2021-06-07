@@ -2,7 +2,7 @@
   <layout>
     <div class="image-page">
       <div class="container">
-        <image-form @updatePosts="updatePosts" v-if="loggedIn()"/>
+        <image-form @updatePosts="updatePosts" v-if="loggedIn"/>
         <div class="images">
           <image-single v-for="post in this.posts" :key="post.id" :post="post" @updatePosts="updatePosts"/>
         </div>
@@ -24,6 +24,7 @@ export default {
   data: function () {
     return {
       posts: [],
+      loggedIn: loggedIn()
     }
   },
   methods: {
@@ -31,8 +32,7 @@ export default {
       axios.get(routesBuilder.api.imagePosts.root).then(res => {
         this.posts = res.data;
       })
-    },
-    loggedIn
+    }
   },
   beforeMount() {
     this.updatePosts()

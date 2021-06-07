@@ -19,15 +19,17 @@
 
           <md-list-item to="/login">
             <md-icon>person</md-icon>
-            <span class="md-list-item-text">Login</span>
+            <span class="md-list-item-text">{{
+              loggedIn ? "Switch User" : "Login"
+            }}</span>
           </md-list-item>
 
-          <md-list-item to="/register">
+          <md-list-item to="/register" v-if="!loggedIn">
             <md-icon>person_add</md-icon>
             <span class="md-list-item-text">Register</span>
           </md-list-item>
 
-          <md-list-item to="/logout" v-if="loggedIn()">
+          <md-list-item to="/logout" v-if="loggedIn">
             <md-icon>delete</md-icon>
             <span class="md-list-item-text">Logout</span>
           </md-list-item>
@@ -44,7 +46,7 @@
 <style lang="scss" scoped>
 .md-app {
   max-height: 100vh;
-  border: 1px solid rgba(#000, .12);
+  border: 1px solid rgba(#000, 0.12);
 }
 
 // Demo purposes only
@@ -58,12 +60,9 @@
 import {loggedIn} from "../utils/auth";
 
 export default {
-  name: 'Reveal',
   data: () => ({
-    menuVisible: false
+    menuVisible: false,
+    loggedIn: loggedIn(),
   }),
-  methods: {
-    loggedIn
-  }
-}
+};
 </script>
