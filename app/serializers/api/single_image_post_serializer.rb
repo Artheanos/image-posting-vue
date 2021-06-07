@@ -2,6 +2,6 @@
 
 module Api
   class SingleImagePostSerializer < ImagePostSerializer
-    attributes :comments
+    has_many :comments
   end
 end
