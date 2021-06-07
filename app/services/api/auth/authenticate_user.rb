@@ -3,27 +3,34 @@
 module Api
   module Auth
     class AuthenticateUser
-      def initialize(email, password)
-        @email = email
-        @password = password
+      def initialize(headers = {})
+        @headers = headers
       end
 
       def call
-        JsonWebToken.encode(user_id: user.id) if user
-      end
-
-      def user
-        return @user if @user
-
-        @user = User.find_by_email(email)
-        @user if @user&.authenticate(password)
-
-        # errors.add :user_authentication, 'invalid credentials'
+        user
       end
 
       private
 
-      attr_accessor :email, :password
+      attr_reader :headers
+
+      def user
+        credentials = decode_token
+        User.find(credentials[:user_id]) if credentials
+      end
+
+      def decode_token
+        token = http_auth_header
+        JsonWebToken.decode(token) if token
+      end
+
+      def http_auth_header
+        return headers['Authentication'].split.last if headers['Authentication'].present?
+
+        # errors.add(:token, 'Missing token')
+        nil
+      end
     end
   end
 end

@@ -1,4 +1,4 @@
-Ruby Version `3.0.0`
+Ruby Version `3.0.1`
 
 ### Installation
 

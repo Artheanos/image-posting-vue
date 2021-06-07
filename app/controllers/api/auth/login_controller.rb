@@ -3,17 +3,9 @@
 module Api
   module Auth
     class LoginController < ApplicationController
-      def index
-        render json: { test: 'test' }
-      end
-
       def create
-        authentication = Api::Auth::AuthenticateUser.new(login_params[:email], login_params[:password])
-        token = authentication.call
-        if token
-          render json: { token: token, user_id: authentication.user.id }
-        else
-          render json: {}, status: :unauthorized
+        LoginService.new(login_params[:email], login_params[:password]).call do |result|
+          render_result(result)
         end
       end
 
@@ -21,6 +13,10 @@ module Api
 
       def login_params
         params.permit(:email, :password)
+      end
+
+      def login_response
+        @login_response ||= LoginService.new(login_params[:email], login_params[:password]).call
       end
     end
   end

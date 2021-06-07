@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Api::Auth::AuthenticateUser do
+RSpec.describe Api::Auth::AssignToken do
   let(:user) { create(:user, password: password) }
   let(:password) { 'Password123' }
   let(:subject) { described_class.new(user.email, password) }

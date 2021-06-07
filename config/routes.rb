@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
     namespace :auth do
       resources :login, only: %i[create]
+      resources :register, only: %i[create]
     end
   end
 

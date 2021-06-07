@@ -4,12 +4,9 @@ module Api
   module Auth
     class RegisterController < ApplicationController
       def create
-        authentication = Api::Auth::AuthenticateUser.new(login_params[:email], login_params[:password])
-        token = authentication.call
-        if token
-          render json: { token: token, user_id: authentication.user.id }
-        else
-          render json: {}, status: :unauthorized
+        user = User.new(register_params)
+        RegisterService.new(user).call do |result|
+          render_result(result)
         end
       end
 

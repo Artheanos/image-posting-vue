@@ -2,7 +2,7 @@
 
 module AuthHelper
   def http_login(user)
-    token = Api::Auth::AuthenticateUser.new(user.email, user.password).call
+    token = Api::Auth::AssignToken.new(user.email, user.password).call
     request.headers.merge!(Authentication: token)
   end
 end
