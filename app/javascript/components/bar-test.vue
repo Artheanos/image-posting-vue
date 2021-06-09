@@ -12,24 +12,24 @@
         <md-toolbar class="md-transparent" md-elevation="0">Navigation</md-toolbar>
 
         <md-list>
-          <md-list-item to="/" exact>
+          <md-list-item :to="routesBuilder.home" exact>
             <md-icon>home</md-icon>
             <span class="md-list-item-text">Home</span>
           </md-list-item>
 
-          <md-list-item to="/login">
+          <md-list-item :to="routesBuilder.auth.login">
             <md-icon>person</md-icon>
             <span class="md-list-item-text">{{
               loggedIn ? "Switch User" : "Login"
             }}</span>
           </md-list-item>
 
-          <md-list-item to="/register" v-if="!loggedIn">
+          <md-list-item :to="routesBuilder.auth.register" v-if="!loggedIn">
             <md-icon>person_add</md-icon>
             <span class="md-list-item-text">Register</span>
           </md-list-item>
 
-          <md-list-item to="/logout" v-if="loggedIn">
+          <md-list-item :to="routesBuilder.auth.logout" v-if="loggedIn">
             <md-icon>delete</md-icon>
             <span class="md-list-item-text">Logout</span>
           </md-list-item>
@@ -58,11 +58,13 @@
 
 <script>
 import {loggedIn} from "../utils/auth";
+import {routesBuilder} from "../routesBuilder";
 
 export default {
   data: () => ({
     menuVisible: false,
     loggedIn: loggedIn(),
+    routesBuilder
   }),
 };
 </script>

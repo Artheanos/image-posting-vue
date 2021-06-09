@@ -8,6 +8,9 @@ export const routesBuilder = {
             root: '/api/comments',
             edit: (comment_id) => `/api/comments/${comment_id}`
         },
+        users: {
+            edit: (user_id) => `/api/users/${user_id}`
+        },
         auth: {
             login: {
                 root: '/api/auth/login'
@@ -16,5 +19,12 @@ export const routesBuilder = {
                 root: '/api/auth/register'
             }
         }
-    }
+    },
+    home: '/',
+    auth: {
+        login: '/login',
+        logout: '/logout',
+        register: '/register'
+    },
+    user: (userId) => `/user/${userId}`
 }

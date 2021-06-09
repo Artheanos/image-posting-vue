@@ -20,6 +20,7 @@ import ImagePage from '../components/image-page/image-page'
 import LoginPage from '../components/user/login-page/login-page';
 import RegisterPage from '../components/user/register-page/register-page';
 import LogoutPage from '../components/user/logout-page';
+import UserPage from '../components/user/user-page/user-page';
 
 const router = new VueRouter({
     mode: 'history',
@@ -28,6 +29,7 @@ const router = new VueRouter({
         {path: '/login', component: LoginPage, name: 'login'},
         {path: '/register', component: RegisterPage, name: 'register'},
         {path: '/logout', component: LogoutPage, name: 'logout'},
+        {path: '/user/:id', component: UserPage, name: 'user'},
 
         {path: '*', component: Page404, name: 'page'},
         // {path: '*', redirect: '/'}

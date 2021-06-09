@@ -13,7 +13,7 @@
         <div class="md-title">{{ post.header }}</div>
         <div class="md-subhead" style="display: flex; justify-content: space-between">
           <span>{{ post.created_at }}</span>
-          <span>{{ post.user.email }}</span>
+          <span><router-link class="clear-href" :to="routesBuilder.user(post.user.id)">{{ post.user.email }}</router-link></span>
         </div>
       </md-card-header>
 
@@ -76,7 +76,8 @@ export default {
       comments: [],
       commentsLoaded: false,
       isOwner: getUserId() === this.post.user.id,
-      loggedIn: loggedIn()
+      loggedIn: loggedIn(),
+      routesBuilder
     }
   },
   methods: {
