@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "command": "foreman",
+    "tasks": [
+        {
+            "type": "shell",
+            // "suppressTaskName": true,
+            "label": "development",
+            "args": [
+                "start"
+            ],
+            "isBackground": true
+        }
+    ]
+}

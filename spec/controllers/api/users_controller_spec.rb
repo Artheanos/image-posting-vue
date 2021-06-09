@@ -19,8 +19,8 @@ RSpec.describe Api::UsersController, type: :controller do
     context 'when params are valid' do
       it 'returns a user' do
         expect(json_response).to include(
-                                   'email' => user.email
-                                 )
+          'email' => user.email
+        )
       end
 
       it 'returns ok status' do
@@ -30,7 +30,6 @@ RSpec.describe Api::UsersController, type: :controller do
     end
 
     context 'when user doesnt exist' do
-
     end
   end
 end
