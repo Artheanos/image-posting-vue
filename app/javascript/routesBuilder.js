@@ -1,7 +1,7 @@
 export const routesBuilder = {
     api: {
         imagePosts: {
-            root: '/api/image_posts',
+            root: (page) => `/api/image_posts?page=${page}`,
             edit: (image_post_id) => `/api/image_posts/${image_post_id}`
         },
         comments: {

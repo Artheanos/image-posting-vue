@@ -2,9 +2,20 @@
   <layout>
     <div class="image-page">
       <div class="container">
-        <image-form @updatePosts="updatePosts" v-if="loggedIn"/>
+        <image-form @updatePosts="addPosts" v-if="loggedIn"/>
         <div class="images">
-          <image-single v-for="post in this.posts" :key="post.id" :post="post" @updatePosts="updatePosts"/>
+          <image-single v-for="post in this.posts" :key="post.id" :post="post" @updatePosts="addPosts"/>
+          <div class="bottom-loading">
+            <md-progress-spinner md-mode="indeterminate" v-if="loading"/>
+            <div v-else-if="reachedEnd">
+              You've reached the end
+            </div>
+            <div v-else>
+              <md-icon>
+                arrow_downward
+              </md-icon>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -24,27 +35,55 @@ export default {
   data: function () {
     return {
       posts: [],
-      loggedIn: loggedIn()
+      page: 0,
+      loggedIn: loggedIn(),
+      reachedBottom: false,
+      reachedEnd: false,
+      loading: false,
     }
   },
   methods: {
-    updatePosts: function () {
-      axios.get(routesBuilder.api.imagePosts.root).then(res => {
-        this.posts = res.data;
+    addPosts() {
+      this.loading = true
+      this.page++
+      axios.get(routesBuilder.api.imagePosts.root(this.page)).then(res => {
+        if (res.data.length === 0) {
+          this.page--
+          this.reachedEnd = true
+        } else {
+          this.posts = this.posts.concat(res.data)
+        }
+        this.loading = false
       })
-    }
+    },
+    onReachBottom() {
+      this.addPosts()
+    },
   },
   beforeMount() {
-    this.updatePosts()
+    this.addPosts(1)
+  },
+  mounted() {
+    const scroller = document.querySelector('.md-app-scroller');
+    scroller.onscroll = (e) => {
+      this.reachedBottom = scroller.scrollHeight - scroller.offsetHeight <= scroller.scrollTop
+      if (this.reachedBottom) {
+        this.onReachBottom()
+      }
+    }
   }
 }
 </script>
 
 <style lang="scss">
+.bottom-loading {
+  text-align: center;
+  height: 5rem;
+}
+
 .image-page {
   display: flex;
   width: 100%;
-  //flex-direction: row;
   justify-content: center;
 
   .container {
@@ -55,7 +94,6 @@ export default {
 
   @media (min-width: 768px) {
     .container {
-      //width: 100%;
       max-width: 100%;
       flex-direction: row;
 
@@ -65,4 +103,5 @@ export default {
     }
   }
 }
+
 </style>
