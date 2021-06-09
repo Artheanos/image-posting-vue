@@ -5,7 +5,7 @@ module Api
     before_action :set_image_post, only: %i[show destroy]
 
     def index
-      render json: ImagePost.includes(:comments).reverse_order
+      render json: ImagePost.page(params[:page] || 1)
     end
 
     def create
