@@ -25,7 +25,7 @@ RSpec.describe Api::CommentsController, type: :controller do
 
     context 'when user is not logged in' do
       it 'does not create a comment' do
-        expect { action }.to change { Comment.count }.by 0
+        expect { action }.not_to change(Comment, :count)
       end
     end
 
@@ -34,7 +34,7 @@ RSpec.describe Api::CommentsController, type: :controller do
 
       it 'does not create a comment' do
         http_login(action_user)
-        expect { action }.to change { Comment.count }.by 0
+        expect { action }.not_to change(Comment, :count)
       end
     end
   end
@@ -48,7 +48,7 @@ RSpec.describe Api::CommentsController, type: :controller do
     context 'when params are valid' do
       it 'deletes a comment' do
         comment
-        expect { action }.to change { Comment.count }.by(-1)
+        expect { action }.to change(Comment, :count).by(-1)
       end
     end
 
@@ -56,7 +56,7 @@ RSpec.describe Api::CommentsController, type: :controller do
       let(:action_user) { create(:user) }
       it 'does not delete the comment' do
         comment
-        expect { action }.to change { Comment.count }.by 0
+        expect { action }.not_to change(Comment, :count)
       end
     end
 
@@ -65,7 +65,7 @@ RSpec.describe Api::CommentsController, type: :controller do
 
       it 'does not delete the comment' do
         comment
-        expect { action }.to change { Comment.count }.by 0
+        expect { action }.not_to change(Comment, :count)
       end
     end
   end

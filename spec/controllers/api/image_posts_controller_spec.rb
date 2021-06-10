@@ -95,7 +95,7 @@ RSpec.describe Api::ImagePostsController, type: :controller do
     context 'when params are valid' do
       before { http_login(author) }
       it 'deletes the image_post' do
-        expect { action }.to change { ImagePost.count }.by(-1)
+        expect { action }.to change(ImagePost, :count).by(-1)
       end
     end
 
@@ -104,7 +104,7 @@ RSpec.describe Api::ImagePostsController, type: :controller do
       before { http_login(user) }
 
       it 'does not delete the image_post' do
-        expect { action }.to change { ImagePost.count }.by 0
+        expect { action }.not_to change(ImagePost, :count)
       end
 
       it 'returns unauthorized status' do
@@ -118,7 +118,7 @@ RSpec.describe Api::ImagePostsController, type: :controller do
       before { http_login(author) }
 
       it 'does not delete the image_post' do
-        expect { action }.to change { ImagePost.count }.by 0
+        expect { action }.not_to change(ImagePost, :count)
       end
     end
   end

@@ -9,18 +9,18 @@ RSpec.describe Api::UsersController, type: :controller do
     action
     JSON.parse(response.body)
   end
-  # let(:author) { create(:user) }
-  # let(:action_user) { author }
-  # let(:image_post) { create(:image_post) }
-  # let(:image_post_id) { image_post.id }
 
   describe '#show' do
     let(:action) { get :show, params: { id: user_id } }
 
     context 'when params are valid' do
-      it 'returns a user' do
+      it 'returns the user with proper values' do
+        3.times { create(:image_post, user: user) }
+        4.times { create(:comment, user: user) }
         expect(json_response).to include(
-          'email' => user.email
+          'email' => user.email,
+          'comment_count' => 4,
+          'post_count' => 3
         )
       end
 
@@ -32,9 +32,11 @@ RSpec.describe Api::UsersController, type: :controller do
 
     context 'when user doesnt exist' do
       let(:user_id) { user.id + 1 }
+
       it 'doesnt return data' do
         expect(json_response).to eq({})
       end
+
       it 'returns not found status' do
         action
         expect(response).to have_http_status :not_found

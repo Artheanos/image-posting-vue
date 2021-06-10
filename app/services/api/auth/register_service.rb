@@ -6,6 +6,7 @@ module Api
       include Dry::Matcher.for(:call, with: Dry::Matcher::ResultMatcher)
 
       def initialize(user)
+        super()
         @user = user
       end
 

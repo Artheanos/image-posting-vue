@@ -28,7 +28,6 @@ module Api
       def http_auth_header
         return headers['Authentication'].split.last if headers['Authentication'].present?
 
-        # errors.add(:token, 'Missing token')
         nil
       end
     end

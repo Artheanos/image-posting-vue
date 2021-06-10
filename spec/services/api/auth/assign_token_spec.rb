@@ -3,9 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Api::Auth::AssignToken do
-  let(:user) { create(:user, password: password) }
-  let(:password) { 'Password123' }
-  let(:subject) { described_class.new(user.email, password) }
+  let(:user) { create(:user) }
+  let(:subject) { described_class.new(user.email, user.password) }
   let(:action) { subject.call }
 
   it 'returns valid token' do
