@@ -6,3 +6,28 @@
   text-decoration: none;
   color: inherit !important;
 }
+
+.md-icon {
+  &.icon-rotatable {
+
+    @keyframes icon-rotating1 {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    animation-play-state: paused;
+    animation-direction: normal;
+    animation-iteration-count: infinite;
+    animation-name: icon-rotating1;
+    animation-duration: 0.2s;
+    animation-timing-function: linear;
+
+    &.icon-rotating {
+      animation-play-state: running;
+    }
+  }
+}

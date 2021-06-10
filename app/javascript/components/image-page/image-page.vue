@@ -4,6 +4,11 @@
       <div class="container">
         <image-form @updatePosts="loadNewPosts" v-if="loggedIn"/>
         <div class="images">
+          <div style="text-align: center">
+            <md-button class="md-icon-button" @click="loadNewPosts" v-if="this.posts.length > 0">
+              <md-icon class="icon-rotatable" v-bind:class="{'icon-rotating': loading}">refresh</md-icon>
+            </md-button>
+          </div>
           <image-single v-for="post in this.posts" :key="post.id" :post="post" @removePost="removePost"/>
           <div class="bottom-loading">
             <md-progress-spinner md-mode="indeterminate" v-if="loading"/>
