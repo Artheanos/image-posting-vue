@@ -5,9 +5,10 @@
         <image-form @updatePosts="loadNewPosts" v-if="loggedIn"/>
         <div class="images">
           <div style="text-align: center">
-            <md-button class="md-icon-button" @click="loadNewPosts" v-if="this.posts.length > 0">
-              <md-icon class="icon-rotatable" v-bind:class="{'icon-rotating': loading}">refresh</md-icon>
-            </md-button>
+            <rotating-icon @click="loadNewPosts" :active="loading" v-if="this.posts.length > 0"/>
+            <!--            <md-button class="md-icon-button" @click="loadNewPosts" v-if="this.posts.length > 0">-->
+            <!--              <md-icon class="icon-rotatable" v-bind:class="{'icon-rotating': loading}">refresh</md-icon>-->
+            <!--            </md-button>-->
           </div>
           <image-single v-for="post in this.posts" :key="post.id" :post="post" @removePost="removePost"/>
           <div class="bottom-loading">
@@ -23,6 +24,7 @@
           </div>
         </div>
       </div>
+      <md-snackbar :md-active.sync="upToDate">You are up to date!</md-snackbar>
     </div>
   </layout>
 </template>
@@ -35,9 +37,10 @@ import ImageForm from './image-form'
 import ImageSingle from './image-single'
 import Layout from '../bar-test';
 import {arrayRemove} from "../../utils/general";
+import RotatingIcon from "../common/rotating-icon";
 
 export default {
-  components: {ImageSingle, ImageForm, Layout},
+  components: {RotatingIcon, ImageSingle, ImageForm, Layout},
   data: function () {
     return {
       posts: [],
@@ -46,6 +49,7 @@ export default {
       reachedBottom: false,
       reachedEnd: false,
       loading: false,
+      upToDate: false,
     }
   },
   methods: {
@@ -64,9 +68,12 @@ export default {
     },
     loadNewPosts() {
       this.loading = true
+      this.upToDate = false
       axios.get(routesBuilder.api.imagePosts.after(this.posts[0].id)).then(res => {
         if (res.data.length > 0) {
           this.posts.unshift(...res.data)
+        } else {
+          this.upToDate = true
         }
         this.loading = false
       })
@@ -75,9 +82,7 @@ export default {
       this.addPosts()
     },
     removePost(id) {
-      console.log('before', this.posts)
       arrayRemove(this.posts, post => post.id === id)
-      console.log('after', this.posts)
     }
   },
 

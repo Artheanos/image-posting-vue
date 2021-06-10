@@ -19,15 +19,15 @@
       }
     }
 
-    animation-play-state: paused;
-    animation-direction: normal;
-    animation-iteration-count: infinite;
-    animation-name: icon-rotating1;
-    animation-duration: 0.2s;
-    animation-timing-function: linear;
+    transform: rotate(0);
+    transition: transform .3s;
 
     &.icon-rotating {
-      animation-play-state: running;
+      animation-direction: normal;
+      animation-iteration-count: infinite;
+      animation-name: icon-rotating1;
+      animation-duration: 1s;
+      animation-timing-function: linear;
     }
   }
 }
