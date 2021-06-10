@@ -5,7 +5,13 @@ module Api
     before_action :set_image_post, only: %i[show destroy]
 
     def index
-      render json: ImagePost.page(params[:page] || 1)
+      result = if params[:after]
+                 ImagePost.where("id > #{params[:after]}")
+               else
+                 ImagePost.page(params[:page] || 1)
+               end
+
+      render json: result.order(id: :desc)
     end
 
     def create

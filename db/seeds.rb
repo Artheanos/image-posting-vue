@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
-require 'factory_bot'
-
 def random_image
   Rack::Test::UploadedFile.new(Dir.glob("#{Rails.root}/spec/files/images/img_*").sample, 'image/png')
 end
 
 random_users = 3.times.map do
-  User.create(email: Faker::Internet.email, password: Faker::Internet.password)
+  email = Faker::Internet.email
+  User.create(email: email, password: email)
 end
 
 random_posts = 3.times.map do

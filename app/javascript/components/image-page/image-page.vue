@@ -2,9 +2,9 @@
   <layout>
     <div class="image-page">
       <div class="container">
-        <image-form @updatePosts="addPosts" v-if="loggedIn"/>
+        <image-form @updatePosts="loadNewPosts" v-if="loggedIn"/>
         <div class="images">
-          <image-single v-for="post in this.posts" :key="post.id" :post="post" @updatePosts="addPosts"/>
+          <image-single v-for="post in this.posts" :key="post.id" :post="post" @removePost="removePost"/>
           <div class="bottom-loading">
             <md-progress-spinner md-mode="indeterminate" v-if="loading"/>
             <div v-else-if="reachedEnd">
@@ -29,6 +29,7 @@ import {loggedIn} from "../../utils/auth";
 import ImageForm from './image-form'
 import ImageSingle from './image-single'
 import Layout from '../bar-test';
+import {arrayRemove} from "../../utils/general";
 
 export default {
   components: {ImageSingle, ImageForm, Layout},
@@ -47,11 +48,20 @@ export default {
       this.loading = true
       this.page++
       axios.get(routesBuilder.api.imagePosts.page(this.page)).then(res => {
-        if (res.data.length === 0) {
+        if (res.data.length > 0) {
+          this.posts = this.posts.concat(res.data)
+        } else {
           this.page--
           this.reachedEnd = true
-        } else {
-          this.posts = this.posts.concat(res.data)
+        }
+        this.loading = false
+      })
+    },
+    loadNewPosts() {
+      this.loading = true
+      axios.get(routesBuilder.api.imagePosts.after(this.posts[0].id)).then(res => {
+        if (res.data.length > 0) {
+          this.posts.unshift(...res.data)
         }
         this.loading = false
       })
@@ -59,10 +69,17 @@ export default {
     onReachBottom() {
       this.addPosts()
     },
+    removePost(id) {
+      console.log('before', this.posts)
+      arrayRemove(this.posts, post => post.id === id)
+      console.log('after', this.posts)
+    }
   },
+
   beforeMount() {
     this.addPosts(1)
   },
+
   mounted() {
     const scroller = document.querySelector('.md-app-scroller');
     scroller.onscroll = (e) => {

@@ -13,7 +13,9 @@
         <div class="md-title">{{ post.header }}</div>
         <div class="md-subhead" style="display: flex; justify-content: space-between">
           <span>{{ post.created_at }}</span>
-          <span><router-link class="clear-href" :to="routesBuilder.user(post.user.id)">{{ post.user.email }}</router-link></span>
+          <span><router-link class="clear-href" :to="routesBuilder.user(post.user.id)">{{
+              post.user.email
+            }}</router-link></span>
         </div>
       </md-card-header>
 
@@ -81,13 +83,14 @@ export default {
     }
   },
   methods: {
-    async onConfirm() {
-      await this.deleteImage()
-      this.deleted = true
-      this.$emit('updatePosts')
+    onConfirm() {
+      this.deleteImage().then(() => {
+        this.deleted = true
+        this.$emit('removePost', this.post.id)
+      })
     },
-    async deleteImage() {
-      await axios.delete(routesBuilder.api.imagePosts.edit(this.post.id), authConfig());
+    deleteImage() {
+      return axios.delete(routesBuilder.api.imagePosts.edit(this.post.id), authConfig());
     },
     async updateComments() {
       const detailedPost = (await axios.get(routesBuilder.api.imagePosts.edit(this.post.id))).data;

@@ -26,21 +26,42 @@ RSpec.describe Api::ImagePostsController, type: :controller do
   end
 
   describe '#index' do
-    let(:action) { get :index }
+    let(:index_params) { {} }
+    let(:action) { get :index, params: index_params }
 
-    it 'lists all image_posts' do
-      create(:image_post, header: 'header1')
-      create(:image_post, header: 'header2')
-      create(:image_post, header: 'header3')
+    context 'when you dont pass any params' do
+      it 'lists image_posts in reverse order' do
+        3.times { |i| create(:image_post, header: "header#{i}") }
 
-      expect(json_response.length).to eq 3
+        expect(json_response.first['header']).to eq 'header2'
+        expect(json_response.last['header']).to eq 'header0'
+      end
+
+      it 'returns comment count' do
+        create(:comment, image_post: image_post)
+        create(:comment, image_post: image_post)
+
+        expect(json_response.first['comment_count']).to eq 2
+      end
     end
 
-    it 'returns comment count' do
-      create(:comment, image_post: image_post)
-      create(:comment, image_post: image_post)
+    context 'when you pass page number' do
+      let(:index_params) { { page: 2 } }
 
-      expect(json_response.first['comment_count']).to eq 2
+      it 'returns proper posts' do
+        10.times { |i| create(:image_post, header: "header#{i}") }
+        expect(json_response.last['header']).to eq 'header0'
+        expect(json_response.first['header']).to eq 'header4'
+      end
+    end
+
+    context 'when you pass "after" param' do
+      let(:index_params) { { after: ImagePost.find_by(header: 'header6').id } }
+      it 'returns posts after header6 post in correct order' do
+        10.times { |i| create(:image_post, header: "header#{i}") }
+        expect(json_response.last['header']).to eq 'header7'
+        expect(json_response.first['header']).to eq 'header9'
+      end
     end
   end
 
