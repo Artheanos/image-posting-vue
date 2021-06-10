@@ -19,7 +19,7 @@ export default {
   props: ['comment'],
   data() {
     return {
-      isOwner: getUserId() === this.comment.user_id
+      isOwner: getUserId() === this.comment.user.id
     }
   },
   methods: {
