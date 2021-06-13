@@ -21,3 +21,5 @@ end
 
 User.create(email: 'user1@user.com', password: 'user1@user.com')
 User.create(email: 'user2@user.com', password: 'user2@user.com')
+
+5.times { Hashtag.create(name: Faker::Adjective.positive) }

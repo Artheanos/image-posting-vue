@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_06_235841) do
+ActiveRecord::Schema.define(version: 2021_06_13_185301) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -50,12 +50,27 @@ ActiveRecord::Schema.define(version: 2021_06_06_235841) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "hashtags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "image_posts", force: :cascade do |t|
     t.string "header"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id", null: false
     t.index ["user_id"], name: "index_image_posts_on_user_id"
+  end
+
+  create_table "post_hashtags", force: :cascade do |t|
+    t.integer "image_post_id", null: false
+    t.integer "hashtag_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["hashtag_id"], name: "index_post_hashtags_on_hashtag_id"
+    t.index ["image_post_id"], name: "index_post_hashtags_on_image_post_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -71,4 +86,6 @@ ActiveRecord::Schema.define(version: 2021_06_06_235841) do
   add_foreign_key "comments", "image_posts"
   add_foreign_key "comments", "users"
   add_foreign_key "image_posts", "users"
+  add_foreign_key "post_hashtags", "hashtags"
+  add_foreign_key "post_hashtags", "image_posts"
 end
