@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
+  # before_action :delay
   include Pundit
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
@@ -23,5 +24,9 @@ class ApplicationController < ActionController::API
       status = data[:status] || :bad_request
       render json: { errors: errors }, status: status
     end
+  end
+
+  def delay
+    sleep 1
   end
 end

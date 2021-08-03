@@ -23,6 +23,48 @@
             <label>Only images</label>
             <md-file accept="image/*" @change="setImage" :value="form.image ? form.image.name : null"/>
           </md-field>
+
+          <v-card
+              class="mx-auto"
+              max-width="344"
+              outlined
+          >
+            <v-list-item three-line>
+              <v-list-item-content>
+                <div class="text-overline mb-4">
+                  OVERLINE
+                </div>
+                <v-list-item-title class="text-h5 mb-1">
+                  Headline 5
+                </v-list-item-title>
+                <v-list-item-subtitle>Greyhound divisely hello coldly fonwderfully</v-list-item-subtitle>
+              </v-list-item-content>
+
+              <v-list-item-avatar
+                  tile
+                  size="80"
+                  color="grey"
+              ></v-list-item-avatar>
+            </v-list-item>
+
+            <v-card-actions>
+              <v-btn
+                  outlined
+                  rounded
+                  text
+              >
+                Button
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+          <!--          <v-combobox-->
+          <!--              v-model="dupa"-->
+          <!--              :items="['dupa', 'kupa']"-->
+          <!--              label="I use a scoped slot"-->
+          <!--              multiple-->
+          <!--              chips-->
+          <!--          />-->
+          <!--            <md-autocomplete :md-options="['dupa', 'kupa']" v-model="dupa"/>-->
         </md-card-content>
 
         <md-progress-bar md-mode="indeterminate" v-if="sending"/>
@@ -54,6 +96,7 @@ export default {
   mixins: [validationMixin],
   data: () => ({
     single: null,
+    dupa: 'a',
     form: {
       header: null,
       image: null,

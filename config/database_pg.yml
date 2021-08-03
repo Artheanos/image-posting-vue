@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch('RAILS_MAX_THREADS') { 5 } %>
+  database: images-vue
+  username: kinder
+  password: kinder123
+  host: localhost
+  port: 5433
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+  database: images-vue-test
+
+staging:
+  <<: *default
+
+production:
+  <<: *default

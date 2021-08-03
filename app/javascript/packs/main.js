@@ -11,6 +11,8 @@
 import Vue from 'vue/dist/vue.esm';
 import VueRouter from "vue-router";
 import VueMaterial from 'vue-material'
+import Vuetify from "vuetify";
+import 'vuetify/dist/vuetify.min.css'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
 
@@ -37,9 +39,11 @@ const router = new VueRouter({
 });
 
 Vue.use(VueMaterial)
+Vue.use(Vuetify)
 Vue.use(VueRouter)
 const app = new Vue({
     router,
+    // vuetify: new Vuetify()
 }).$mount('#app')
 
 // document.addEventListener('DOMContentLoaded', () => {
